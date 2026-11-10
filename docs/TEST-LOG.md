@@ -132,6 +132,17 @@ gates 4 and 8 missed (measured 335 and 364 cents sharp; the hum was 350). Practi
 
 **Change.** None needed. This run is the regression test for every later change.
 
+## 2026-11-10 · Test 8: a 720-pixel-tall screen
+
+**Setup.** While recording the demo at 1280×720 (a common laptop height), I checked
+the frames.
+
+**Result.** The result card did not fit in the sky: the third button was cut off
+and the card scrolled.
+
+**Change.** A compact layout for screens under 820 px tall. Re-checked on the live
+site at 1280×720, 1366×768 and a 390×664 phone: the card fits with no scrolling.
+
 ## Known limits (measured, not fixed)
 
 - **Very loud rooms.** At SNR 5 dB (noise only 5 dB below the hum) the game hears

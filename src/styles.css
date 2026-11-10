@@ -505,3 +505,40 @@ a {
   border-top: 6px solid transparent;
   border-image: var(--airmail) 6;
 }
+
+/* Short screens (a 720-768 px tall laptop): keep the postcards inside the sky. */
+@media (max-height: 820px) {
+  .panel {
+    padding: 16px 20px;
+  }
+  .panel h1 {
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+  }
+  .panel h2 {
+    font-size: 2.1rem;
+    margin-bottom: 8px;
+  }
+  .panel p {
+    margin-bottom: 8px;
+  }
+  .stats {
+    margin: 4px 0 8px;
+  }
+  .stats div {
+    padding: 6px 10px;
+  }
+  .stats b {
+    font-size: 1.5rem;
+  }
+  .flightlog {
+    height: 84px;
+  }
+  .actions {
+    margin-top: 10px;
+    gap: 8px;
+  }
+  .btn {
+    font-size: 1.2rem;
+    padding: 10px 16px 9px;
+  }
+}
