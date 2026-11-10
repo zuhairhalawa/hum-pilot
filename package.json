@@ -1,0 +1,26 @@
+{
+  "name": "hum-pilot",
+  "version": "0.1.0",
+  "description": "Hum to fly. A paper plane steered by the pitch of your voice.",
+  "scripts": {
+    "dev": "vite --port 5193",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 5194",
+    "test": "vitest run",
+    "accuracy": "node --experimental-strip-types scripts/accuracy.ts",
+    "fixtures": "node --experimental-strip-types scripts/make-fixtures.ts"
+  },
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.8",
+    "vitest": "^3.2.7"
+  },
+  "dependencies": {
+    "@fontsource/atkinson-hyperlegible": "^5.3.0",
+    "@fontsource/big-shoulders-display": "^5.3.0"
+  }
+}

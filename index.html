@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Hum Pilot: fly a paper plane with your voice</title>
+    <meta name="description" content="Hum higher to climb, lower to dive, go quiet to glide. A paper-plane game steered by the pitch of your voice, tuned to your own range. Nothing leaves your device." />
+    <meta name="theme-color" content="#1c3f94" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content="Hum Pilot" />
+    <meta property="og:description" content="Fly a paper plane with your voice. Hum higher to climb, lower to dive." />
+    <meta property="og:image" content="/og.png" />
+  </head>
+  <body>
+    <a class="skip" href="#play">Skip to the game</a>
+    <header class="bar">
+      <a class="wordmark" href="/">Hum Pilot</a>
+      <nav aria-label="Page">
+        <a href="#how">How it works</a>
+        <a href="#tests">What testing changed</a>
+        <button type="button" id="sound" class="linkish" aria-pressed="true">Sound on</button>
+      </nav>
+    </header>
+
+    <main>
+      <section class="stage" id="play" aria-label="Game">
+        <canvas id="sky" aria-hidden="true"></canvas>
+
+        <div class="hud" id="hud" hidden>
+          <span class="hud-gates"><b id="hud-count">0</b> of <span id="hud-total">20</span> gates</span>
+          <span class="hud-lives" id="hud-lives" aria-label="3 tries left"></span>
+          <span class="hud-hint" id="hud-hint"></span>
+        </div>
+
+        <div class="panel" id="panel" role="region" aria-live="polite">
+          <!-- filled by src/main.ts -->
+        </div>
+        <p class="sr-only" id="announcer" aria-live="assertive"></p>
+      </section>
+
+      <section class="how" id="how" aria-labelledby="how-title">
+        <h2 id="how-title">How it works</h2>
+        <div class="how-grid">
+          <div>
+            <h3>Your voice is the stick</h3>
+            <p>Hum a higher note and the plane climbs. Hum lower and it dives. Stop humming and it glides gently down. No hands needed.</p>
+          </div>
+          <div>
+            <h3>Tuned to your range</h3>
+            <p>A ten-second warm-up finds your lowest and highest comfortable notes. Deep or high, the whole sky fits your voice, and every gap sits on a real note in it.</p>
+          </div>
+          <div>
+            <h3>Listening stays on your device</h3>
+            <p>Pitch is worked out in your browser, 60 times a second. No sound is recorded, uploaded or saved.</p>
+          </div>
+        </div>
+        <p class="tip">Works best with headphones or speakers turned down, in a quiet room. A fan right next to the microphone makes the plane glide more, because it can hear you less.</p>
+      </section>
+
+      <section class="tests" id="tests" aria-labelledby="tests-title">
+        <h2 id="tests-title">What testing changed</h2>
+        <p class="lede">Every version of the pitch tracker was scored on synthetic hums from four voices (deep to high), every note in their range, clean and with room noise. A frame counts as a <em>wrong note</em> when the pitch steering the plane is more than half a semitone off the note being hummed.</p>
+        <div class="versions" id="versions"></div>
+        <p class="more">The full story, with each test and the change it caused: <a href="https://github.com/zuhairhalawa/hum-pilot/blob/main/docs/TEST-LOG.md">test log</a> and <a href="https://github.com/zuhairhalawa/hum-pilot/blob/main/docs/ACCURACY.md">accuracy report</a>.</p>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>Hum Pilot is open source under the MIT licence. Made for the Silicon Valley Buildathon 2026.</p>
+    </footer>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

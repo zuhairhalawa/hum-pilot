@@ -1,0 +1,10 @@
+node_modules
+dist
+test-results
+shots
+.wrangler
+.env
+.dev.vars
+.claude
+test/fixtures/*.wav
+docs/accuracy-run.txt
