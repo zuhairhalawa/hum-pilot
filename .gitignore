@@ -7,3 +7,4 @@ shots
 .dev.vars
 test/fixtures/*.wav
 docs/accuracy-run.txt
+.impeccable/

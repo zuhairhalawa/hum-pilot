@@ -7,7 +7,7 @@ sits on a real note in it, so threading the gaps means humming a little tune.
 **Play it:** https://hum-pilot.pages.dev (works on a laptop or a phone; needs a microphone,
 or fly with the arrow keys)
 
-<!-- VIDEO -->
+**Demo video (2:23):** https://youtu.be/NieI9CSODtk
 
 ![A paper plane threading stamp-edged gates while a synthetic voice hums the tune; each gap is marked with its note](docs/flight.gif)
 
