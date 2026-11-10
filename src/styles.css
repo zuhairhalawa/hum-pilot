@@ -417,8 +417,9 @@ a {
 }
 .tip {
   margin-top: 18px !important;
-  padding-left: 14px;
-  border-left: 4px solid var(--stamp);
+  padding: 10px 14px;
+  background: var(--paper);
+  border-radius: 6px;
 }
 
 .versions {
