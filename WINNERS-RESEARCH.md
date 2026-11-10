@@ -51,4 +51,4 @@ Hum Pilot differs from Humbird/Pitch Bird (nearest): continuous relative pitch s
 
 ## What to copy / what to avoid
 Copy: 2-min demo-only video; live link; README with test table (devices, mics, rooms, gross error %, calibration success rate, latency); a "what testing changed" section (e.g. threshold 0.1 vs 0.2, median filter, clarity gate, calibration added after failed tests); first-run calibration shown in video.
-Avoid: claiming humming improves singing or therapy outcomes without own data; naming or art resembling Yasuhati/Flappy-style birds; quoting unverified YIN numbers; mentioning AI help.
+Avoid: claiming humming improves singing or therapy outcomes without own data; naming or art resembling Yasuhati/Flappy-style birds; quoting unverified YIN numbers.
