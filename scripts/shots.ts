@@ -45,4 +45,17 @@ const browser = await chromium.launch({ channel: 'msedge', args });
   console.log(JSON.stringify({ threaded: await page.evaluate(() => (window as any).__hum.threaded), overflow, errors }));
   await ctx.close();
 }
+// Hero: 2x, caught as the plane passes through the 5th gap (cover image and README)
+{
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 800 }, deviceScaleFactor: 2, permissions: ['microphone'] });
+  const page = await ctx.newPage();
+  await page.goto(`${BASE}/?seed=e2e&gates=12`);
+  await page.click('[data-act=fly]');
+  await page.waitForFunction(() => {
+    const h = (window as any).__hum;
+    return h.mode === 'flying' && h.gates.length > 5 && h.flightT > h.gates[5].time - 0.12;
+  }, null, { timeout: 40000, polling: 10 });
+  await page.screenshot({ path: `${OUT}/hero.png` });
+  await ctx.close();
+}
 await browser.close();

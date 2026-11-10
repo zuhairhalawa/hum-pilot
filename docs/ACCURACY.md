@@ -79,16 +79,16 @@ Run it with `node --experimental-strip-types scripts/e2e-mic.ts <url>`.
 
 | Recording | Range found | Result | Missed gates (expected) | Browser vs offline delay | Result |
 | --- | --- | --- | --- | --- | --- |
-| flight-warm | A#2-G#3 | 12/12 gates | [] ([]) | median 8 ms (-4 to 17) | pass |
-| flight-high-noisy | C4-A#4 | 12/12 gates | [] ([]) | median 12 ms (-1 to 27) | pass |
-| flight-two-misses | F2-D#3 | 10/12 gates | [4,8] ([4,8]) | median 8 ms (-51 to 19) | pass |
-| practice-light (practice) | 53-64 (MIDI) | 8/8 notes matched | – | – | pass |
+| flight-warm | A#2-G#3 | 12/12 gates | [] ([]) | median -3 ms (-22 to 2) | pass |
+| flight-high-noisy | C4-A#4 | 12/12 gates | [] ([]) | median -12 ms (-31 to 10) | pass |
+| flight-two-misses | F2-D#3 | 10/12 gates | [4,8] ([4,8]) | median 6 ms (-4 to 19) | pass |
+| practice-light (practice) | F3-E4 | 8/8 notes matched | – | – | pass |
 
 "Browser vs offline delay" compares when the browser's steering pitch settled on each new
 note with when the same detector, run offline on the same file, settled. Near zero means the
 live audio path (microphone, AnalyserNode, animation frames) adds no measurable delay
 beyond the detector itself. Edge reported an audio input latency of 10 ms and YIN took
-0.80 ms per frame in the page.
+1.90 ms per frame in the page.
 
 ## Limits
 

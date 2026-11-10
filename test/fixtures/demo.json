@@ -5,9 +5,9 @@
     "low": 53,
     "high": 64
   },
-  "tuneStart": 8.4,
-  "tuneEnd": 30,
-  "practiceStart": 41,
+  "tuneStart": 17.3,
+  "tuneEnd": 38.9,
+  "practiceStart": 48,
   "gates": [
     "A3",
     "F3",
@@ -27,5 +27,5 @@
     "G3",
     "D4"
   ],
-  "seconds": 53.1
+  "seconds": 60.1
 }

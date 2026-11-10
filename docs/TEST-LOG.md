@@ -104,9 +104,10 @@ because at that noise level about 11% of what *is* heard is an octave off anyway
 Arrow-key flights and screenshots for the parts a fake microphone cannot show.
 
 **Result.** The game found the exact range hummed and threaded 12 of 12 gates. The
-browser's steering pitch settled on each new note a median of 0 to 12 ms after the same
-detector run offline on the same file (single notes: −51 to +27 ms, about ±3 frames), so the
-live audio path adds almost no delay.
+browser's steering pitch settled on each new note within about a frame of the same
+detector run offline on the same file (median difference between −12 and +12 ms per
+recording across two runs; single notes −51 to +27 ms), so the live audio path adds
+almost no delay.
 The screenshots found three problems the unit tests could not:
 1. The score bar was visible on the title screen (a CSS rule overrode `hidden`).
 2. The flight trail was meant to be dashed but drew solid, because each 1-pixel

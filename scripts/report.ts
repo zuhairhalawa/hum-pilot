@@ -1,6 +1,7 @@
 // Writes docs/ACCURACY.md from docs/accuracy.json (and test-results/e2e-mic.json if present).
 // Usage: node --experimental-strip-types scripts/report.ts
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { noteName } from '../src/pitch/notes.ts';
 
 const acc = JSON.parse(readFileSync('docs/accuracy.json', 'utf8'));
 const pct = (x: number) => `${(100 * x).toFixed(1)}%`;
@@ -99,7 +100,7 @@ Run it with \`node --experimental-strip-types scripts/e2e-mic.ts <url>\`.
 `;
   for (const r of e.report) {
     if (r.matched) {
-      md += `| ${r.fixture} (practice) | ${r.range.low}-${r.range.high} (MIDI) | ${r.matched} notes matched | – | – | ${r.ok ? 'pass' : 'FAIL'} |\n`;
+      md += `| ${r.fixture} (practice) | ${noteName(r.range.low)}-${noteName(r.range.high)} | ${r.matched} notes matched | – | – | ${r.ok ? 'pass' : 'FAIL'} |\n`;
     } else {
       md += `| ${r.fixture} | ${r.expectedRange.lowName}-${r.expectedRange.highName} | ${r.threaded} gates | ${JSON.stringify(r.missed)} (${JSON.stringify(r.expectMissed)}) | median ${r.browserMinusOfflineMs.median} ms (${r.browserMinusOfflineMs.min} to ${r.browserMinusOfflineMs.max}) | ${r.ok ? 'pass' : 'FAIL'} |\n`;
     }

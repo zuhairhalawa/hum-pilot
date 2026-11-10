@@ -51,7 +51,8 @@ mkdirSync('test/fixtures', { recursive: true });
   const voice = VOICES.find((v) => v.name === 'light')!;
   const range = { low: 53, high: 64 };
   const gates = makeLevel(range, 'demo', { gates: 12 });
-  const notes: Note[] = [{ midi: null, dur: 0.6 }, { midi: range.low, dur: 2.6 }, { midi: null, dur: 1.0 }, { midi: range.high, dur: 2.6 }, { midi: null, dur: 1.6 }];
+  // A long pause before the tune leaves room for narration over the "Ready" screen.
+  const notes: Note[] = [{ midi: null, dur: 0.6 }, { midi: range.low, dur: 2.6 }, { midi: null, dur: 1.0 }, { midi: range.high, dur: 2.6 }, { midi: null, dur: 10.5 }];
   const tuneStart = notes.reduce((a, n) => a + n.dur, 0);
   gates.forEach((g, i) => {
     const from = i === 0 ? 0 : (gates[i - 1].time + g.time) / 2;
@@ -59,7 +60,7 @@ mkdirSync('test/fixtures', { recursive: true });
     notes.push({ midi: g.note, dur: to - from });
   });
   const tuneEnd = notes.reduce((a, n) => a + n.dur, 0);
-  const practiceStart = Math.ceil(tuneEnd + 11);
+  const practiceStart = Math.ceil(tuneEnd + 8.5);
   notes.push({ midi: null, dur: practiceStart - tuneEnd });
   const targets = practiceTargets(range, mulberry32(hashSeed('demo-0'))).slice(0, 3);
   for (const t of targets) notes.push({ midi: t, dur: 2.2 }, { midi: null, dur: 0.5 });
