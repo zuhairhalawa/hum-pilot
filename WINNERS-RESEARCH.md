@@ -1,6 +1,6 @@
 # Hum Pilot: winners and prior-art research (2026-11-10)
 
-Caveat: devpost.com pages returned HTTP 403 to the fetcher, so the event page and project pages were not read directly. No Devpost winner for a pitch/hum game was found; patterns below come from general hackathon guidance plus comparable projects. Items marked UNVERIFIED must be checked before citing.
+Caveat: devpost.com pages could not be loaded during this research, so the event page and project pages were not read directly. No Devpost winner for a pitch/hum game was found; patterns below come from general hackathon guidance plus comparable projects. Items marked UNVERIFIED must be checked before citing.
 
 ## Sources
 - Humbird (hum a note, bird height): https://github.com/ValentinH/humbird

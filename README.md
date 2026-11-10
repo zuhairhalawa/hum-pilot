@@ -9,7 +9,9 @@ or fly with the arrow keys)
 
 <!-- VIDEO -->
 
-![A paper plane threading stamp-edged gates, each gap marked with its note](docs/screenshots/flight.png)
+![A paper plane threading stamp-edged gates while a synthetic voice hums the tune; each gap is marked with its note](docs/flight.gif)
+
+*The hum here is a synthetic voice played into the browser as the microphone.*
 
 | Phone: warm-up | Phone: in flight | Result |
 | --- | --- | --- |
@@ -17,9 +19,9 @@ or fly with the arrow keys)
 
 ## Why
 
-Most games need hands. Hum Pilot needs only a hum, so it is playable by people who
-can't use a keyboard, mouse or touch screen comfortably, and by anyone with their hands
-busy. Voice games usually assume one fixed range, which shuts out deep or high voices;
+Most games need hands. In Hum Pilot, flying needs only a hum (the menus still take a
+click or a key press), which could suit people who find a keyboard, mouse or touch
+screen hard to use, or anyone with their hands busy. It has not been tested with users yet. Voice games usually assume one fixed range, which shuts out deep or high voices;
 here the warm-up maps *your* lowest and highest comfortable notes onto the sky.
 
 Because every gap is a real note of your range, each flight is also pitch practice, and
@@ -32,7 +34,7 @@ one second, with live feedback in cents (100 cents is one semitone).
 2. Warm-up: hum your lowest comfortable note and hold it, take a breath, then hum your
    highest. Mouth closed, an "mmm" works best.
 3. Go quiet for a moment, then hum any note to take off.
-4. Higher hum = climb, lower hum = dive, silence = glide. Thread 20 gates; three misses
+4. Higher hum = climb, lower hum = dive, silence = glide. Thread 20 gates (the tests and video use a 12-gate level); three misses
    end the flight.
 
 Headphones (or quiet speakers) help: the game's own sound effects are pitchless noise
@@ -51,7 +53,7 @@ warm-up (lowest + highest note) ─▶ your range ─▶ gates on its pentatonic
 ```
 
 - **Pitch detection**: YIN (de Cheveigné and Kawahara, 2002) in plain TypeScript, under
-  1 ms per frame. Browser noise suppression and auto gain are switched off, because
+  1 ms per frame in Node and about 1-2 ms in the browser. Browser noise suppression and auto gain are switched off, because
   noise suppression treats a steady hum as noise.
 - **Tracker**: turns noisy per-frame guesses into a steady control signal
   ([src/pitch/tracker.ts](src/pitch/tracker.ts)). Every stage exists because a test showed
@@ -60,7 +62,7 @@ warm-up (lowest + highest note) ─▶ your range ─▶ gates on its pentatonic
   again if the two notes are fewer than 5 semitones apart
   ([src/game/calibrate.ts](src/game/calibrate.ts)).
 - **Levels**: gaps sit on the major pentatonic notes of your range, so any sequence of
-  them sounds musical; each gap leaves at least 1.6 semitones of room either way
+  them sounds musical; each gap is at least 3.2 semitones tall
   ([src/game/level.ts](src/game/level.ts)).
 - Everything runs in the browser. No sound is recorded, uploaded or stored.
 
@@ -74,16 +76,16 @@ is more than half a semitone off the note being hummed.
 | Version | Change | Wrong notes (quiet) | Wrong notes (room noise, SNR 10 dB) | Delay to a new note |
 | --- | --- | --- | --- | --- |
 | 0 | Autocorrelation peak | 23.9% | 30.3% | 76 ms |
-| 1 | YIN | 0.3% | 0.9% | 59 ms |
-| 2 | + median of 5 | 0.8% | 0.8% | 93 ms |
-| 3 | + jump guard, hangover | 2.1% | 0.9% | 93 ms |
-| 4 | + clearer reading wins | 2.1% | 0.9% | 93 ms |
+| 1 | YIN | 0.3% | 0.6% | 59 ms |
+| 2 | + median of 5 | 0.8% | 0.6% | 93 ms |
+| 3 | + jump guard, hangover | 1.5% | 0.6% | 93 ms |
+| 4 | + clearer reading wins | 1.5% | 0.6% | 93 ms |
 | 5 | + fresh start after a breath | 1.3% | 0.6% | 93 ms |
 | **6** | **median of 3 (shipped)** | **0.5%** | **0.6%** | **76 ms** |
 
 What each test found, in order:
-1. Autocorrelation jumped an octave on about 1 frame in 5: a hum's 2nd or 3rd harmonic is
-   often louder than its fundamental. → YIN, 0 octave errors on clean hums.
+1. Autocorrelation jumped an octave on about 1 clean frame in 5: a hum's 2nd or 3rd harmonic is
+   often louder than its fundamental. → YIN, no octave errors on clean hums.
 2. My own metric punished smoothing for removing vibrato, and my test voice slid into
    notes after silences. → score steering against the intended note; fix the synth.
 3. The jump guard could lock onto the wrong octave for ~100 ms after a breathy onset.
@@ -99,9 +101,9 @@ Full details: **[docs/TEST-LOG.md](docs/TEST-LOG.md)** (dated, with the numbers 
 after each change) and **[docs/ACCURACY.md](docs/ACCURACY.md)** (all tables).
 
 **In a real browser.** Microsoft Edge with a fake microphone playing a synthetic hum, on
-the live site: the game found the exact range hummed and threaded 12 of 12 gates (also 12
-of 12 for a high voice in room noise). When the hum was deliberately wrong on gates 4
-and 8, exactly those two were missed. In practice mode, 8 of 8 notes were matched.
+the live site, on a 12-gate test level: the game found the exact range hummed and threaded
+12 of 12 gates (also 12 of 12 for a high voice in room noise). When the hum was deliberately
+wrong on the 5th and 9th gates, exactly those two were missed. In practice mode, 8 of 8 notes were matched.
 
 **Limits.** All voices in these tests are synthetic; the detector has not been scored on
 labelled recordings of real people. In a very loud room (noise only 5 dB below the hum)

@@ -72,7 +72,7 @@ describe('levels', () => {
     expect(a[1].time - a[0].time).toBeGreaterThan(a[29].time - a[28].time);
   });
 
-  it('leaves at least 1.6 semitones of room each way in every gap', () => {
+  it('makes every gap at least 3.2 semitones tall', () => {
     for (const g of makeLevel(r, 'y')) expect(g.half).toBeGreaterThanOrEqual(semitoneHeight(r) * 1.6 - 1e-9);
   });
 

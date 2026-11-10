@@ -1,6 +1,9 @@
 # Test log
 
-Every test that changed the build, in the order it happened. Numbers come from
+Every test that changed the build, in the order it happened. Each entry gives the
+numbers that test measured at the time. Later changes (Test 5 in particular) touch code
+every version shares, so the final re-run of all versions, in [ACCURACY.md](ACCURACY.md),
+differs slightly from some earlier entries. Numbers come from
 `npm run accuracy` (synthetic hums, see [ACCURACY.md](ACCURACY.md)) or the browser
 tests in `scripts/`. No real voices are used: every hum is synthesised, so the
 true pitch of every sample is known.
@@ -22,14 +25,14 @@ buffer. Tested on 25 pure tones (70-800 Hz) and on synthetic hums from four voic
 (deep, warm, light, high), every note in each range.
 
 **Result.** Pure tones were fine in the middle but the worst tone was off by 41
-semitones. On hums, **about 1 clean frame in 5 was an octave error** (20.4% in the
-final full run). A hum is a nasal
+semitones. On hums, **about 1 clean frame in 5 was an octave error** (20.5% in the
+final re-run). A hum is a nasal
 murmur with a resonance near 250-330 Hz, so for a low voice the 2nd or 3rd harmonic
 is louder than the fundamental, and the autocorrelation peak lands on it.
 
 **Change.** Replaced it with YIN (cumulative mean normalised difference, first dip
 under 0.15, parabolic interpolation). Clean hums: **0.0% octave errors**, median
-error 3.3 cents against the true pitch. Pure tones: worst error 0.2 cents.
+error 3.2 cents against the true pitch. Pure tones: worst error 0.2 cents.
 Version 0 stays in `src/pitch/acf.ts` only so this comparison can be re-run.
 
 ## 2026-11-10 · Test 2: my metric was wrong, and so was my test voice
@@ -63,8 +66,8 @@ suspicious leap, and held the wrong octave for about 100 ms.
 95th percentile back to 39 cents. A unit test now replays that exact onset.
 
 *Honest footnote:* the full run (every note, other random seeds) hit this onset
-pattern far less often, so there v3 and v4 tie at SNR 10 dB (0.9% wrong-note frames)
-and v4 is only a little better at SNR 5 dB (10.0% → 9.0%).
+pattern far less often: in the final re-run v3 and v4 tie at SNR 10 dB (0.6% wrong-note
+frames) and v4 is only a little better at SNR 5 dB (10.1% → 9.0%).
 
 ## 2026-11-10 · Test 4: the old note dragged the next one
 
@@ -106,7 +109,7 @@ Arrow-key flights and screenshots for the parts a fake microphone cannot show.
 **Result.** The game found the exact range hummed and threaded 12 of 12 gates. The
 browser's steering pitch settled on each new note within about a frame of the same
 detector run offline on the same file (median difference between −12 and +12 ms per
-recording across two runs; single notes −51 to +27 ms), so the live audio path adds
+recording, −12 to +6 ms in the saved run [e2e-mic.json](e2e-mic.json); single notes −31 to +19 ms), so the live audio path adds
 almost no delay.
 The screenshots found three problems the unit tests could not:
 1. The score bar was visible on the title screen (a CSS rule overrode `hidden`).
@@ -123,11 +126,11 @@ plane, and the tolerance went from 35 to 40 cents. Big misses now read
 ## 2026-11-10 · Test 7: the full browser suite on the live site
 
 **Setup.** Four recordings against https://hum-pilot.pages.dev: a warm voice, a high
-voice with room noise (SNR 15 dB), a deep voice that hums gates 4 and 8 a minor third
-too high on purpose, and a practice run of eight notes.
+voice with room noise (SNR 15 dB), a deep voice that hums the 5th and 9th gates 3.5
+semitones (350 cents) too high on purpose, and a practice run of eight notes.
 
 **Result.** All four pass. Warm and noisy-high: 12 of 12. Deliberate misses: exactly
-gates 4 and 8 missed (measured 335 and 364 cents sharp; the hum was 350). Practice:
+the 5th and 9th gates missed (measured 335 and 342 cents sharp; the hum was 350). Practice:
 8 of 8 notes matched. Details in [ACCURACY.md](ACCURACY.md#in-a-real-browser).
 
 **Change.** None needed. This run is the regression test for every later change.

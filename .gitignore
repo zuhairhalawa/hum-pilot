@@ -5,6 +5,5 @@ shots
 .wrangler
 .env
 .dev.vars
-.claude
 test/fixtures/*.wav
 docs/accuracy-run.txt
