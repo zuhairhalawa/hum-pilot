@@ -22,7 +22,8 @@ buffer. Tested on 25 pure tones (70-800 Hz) and on synthetic hums from four voic
 (deep, warm, light, high), every note in each range.
 
 **Result.** Pure tones were fine in the middle but the worst tone was off by 41
-semitones. On hums, **21% of clean frames were octave errors**. A hum is a nasal
+semitones. On hums, **about 1 clean frame in 5 was an octave error** (20.4% in the
+final full run). A hum is a nasal
 murmur with a resonance near 250-330 Hz, so for a low voice the 2nd or 3rd harmonic
 is louder than the fundamental, and the autocorrelation peak lands on it.
 
@@ -44,22 +45,26 @@ both in the test, not the game:
    (no vibrato, no drift). Raw detector accuracy is still scored against the true pitch.
 2. The synthetic voice slid into each note from the previous one, even after a
    silence. A bug in the synth's glide reset. **Fixed** (a note after a breath now
-   starts on pitch). Clean wrong-note frames for plain YIN fell from 7.8% to 0.2%.
+   starts on pitch). Clean wrong-note frames for plain YIN fell from 7.8% to 0.3%.
 
 ## 2026-11-10 · Test 3: the jump guard locked onto the wrong octave
 
 **Setup.** Version 3 added a jump guard (a leap of more than 7 semitones must repeat
 for 3 frames before it is believed) and a 3-frame hangover for short dropouts.
 
-**Result.** Good in heavy noise (SNR 5 dB wrong-note frames 15% → 10%), but at
-SNR 10 dB the 95th-percentile error jumped from 37 to **322 cents**. Frame traces
-showed why: breathy note onsets sometimes read an octave low for 2 frames, the
-guard then treated the *correct* pitch as the suspicious leap, and held the wrong
-octave for about 100 ms.
+**Result.** Good in heavy noise (SNR 5 dB wrong-note frames 15% → 10%). But in the
+quick run (every third note), the SNR 10 dB 95th-percentile error jumped from 37 to
+**322 cents**. Frame traces showed why: breathy note onsets sometimes read an
+octave low for 2 frames, the guard then treated the *correct* pitch as the
+suspicious leap, and held the wrong octave for about 100 ms.
 
 **Change.** Version 4: a reading that is clearly more periodic (clarity at least
-0.04 higher than anything in the window) replaces the window at once.
-95th percentile back to 39 cents.
+0.04 higher than anything in the window) replaces the window at once. Quick run:
+95th percentile back to 39 cents. A unit test now replays that exact onset.
+
+*Honest footnote:* the full run (every note, other random seeds) hit this onset
+pattern far less often, so there v3 and v4 tie at SNR 10 dB (0.9% wrong-note frames)
+and v4 is only a little better at SNR 5 dB (10.0% → 9.0%).
 
 ## 2026-11-10 · Test 4: the old note dragged the next one
 
@@ -91,6 +96,40 @@ periodic tail of each hum and raised the gate above the voice.
 frames heard, 0.6% wrong-note frames, and the test passes. The price: in a very loud
 room (SNR 5 dB) the stricter gate hears 9% of frames instead of 24%. I kept it,
 because at that noise level about 11% of what *is* heard is an octave off anyway.
+
+## 2026-11-10 · Test 6: first flights in a real browser
+
+**Setup.** Microsoft Edge with a fake microphone playing a synthetic hum
+(`--use-file-for-fake-audio-capture`): warm-up, a pause, then the tune the gates spell.
+Arrow-key flights and screenshots for the parts a fake microphone cannot show.
+
+**Result.** The game found the exact range hummed and threaded 12 of 12 gates. The
+browser's steering pitch settled on each new note a median of 0 to 12 ms after the same
+detector run offline on the same file (single notes: −51 to +27 ms, about ±3 frames), so the
+live audio path adds almost no delay.
+The screenshots found three problems the unit tests could not:
+1. The score bar was visible on the title screen (a CSS rule overrode `hidden`).
+2. The flight trail was meant to be dashed but drew solid, because each 1-pixel
+   segment restarted the dash pattern.
+3. The practice ring was drawn exactly at the tolerance (about 14 px on a laptop
+   screen), smaller than the plane, so you could not see when you were "in" it.
+
+**Change.** Hid the bar properly; the trail is now one path per run of humming, so
+dashes flow and stay fixed to the sky; the ring now shows the tolerance plus room for the
+plane, and the tolerance went from 35 to 40 cents. Big misses now read
+"Too low: hum higher" instead of "376 cents flat".
+
+## 2026-11-10 · Test 7: the full browser suite on the live site
+
+**Setup.** Four recordings against https://hum-pilot.pages.dev: a warm voice, a high
+voice with room noise (SNR 15 dB), a deep voice that hums gates 4 and 8 a minor third
+too high on purpose, and a practice run of eight notes.
+
+**Result.** All four pass. Warm and noisy-high: 12 of 12. Deliberate misses: exactly
+gates 4 and 8 missed (measured 335 and 364 cents sharp; the hum was 350). Practice:
+8 of 8 notes matched. Details in [ACCURACY.md](ACCURACY.md#in-a-real-browser).
+
+**Change.** None needed. This run is the regression test for every later change.
 
 ## Known limits (measured, not fixed)
 

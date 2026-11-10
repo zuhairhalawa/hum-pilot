@@ -1,0 +1,167 @@
+{
+  "base": "https://hum-pilot.pages.dev",
+  "date": "2026-11-10T10:04:54.218Z",
+  "report": [
+    {
+      "fixture": "flight-warm",
+      "ok": true,
+      "range": {
+        "low": 46,
+        "high": 56
+      },
+      "expectedRange": {
+        "low": 46,
+        "high": 56,
+        "lowName": "A#2",
+        "highName": "G#3"
+      },
+      "threaded": "12/12",
+      "missed": [],
+      "expectMissed": [],
+      "centsOff": [
+        9,
+        -16,
+        -5,
+        -34,
+        -17,
+        4,
+        30,
+        1,
+        -11,
+        -10,
+        4,
+        24
+      ],
+      "noteChanges": 8,
+      "browserMinusOfflineMs": {
+        "median": 8,
+        "min": -4,
+        "max": 17
+      },
+      "offlineSettleMs": {
+        "median": 168,
+        "max": 188
+      },
+      "detectMsMedian": 0.800000011920929,
+      "baseLatencyMs": 10,
+      "sampleRate": 48000,
+      "errors": []
+    },
+    {
+      "fixture": "flight-high-noisy",
+      "ok": true,
+      "range": {
+        "low": 60,
+        "high": 70
+      },
+      "expectedRange": {
+        "low": 60,
+        "high": 70,
+        "lowName": "C4",
+        "highName": "A#4"
+      },
+      "threaded": "12/12",
+      "missed": [],
+      "expectMissed": [],
+      "centsOff": [
+        -1,
+        7,
+        -23,
+        -26,
+        -29,
+        -33,
+        28,
+        -8,
+        6,
+        -16,
+        -29,
+        8
+      ],
+      "noteChanges": 11,
+      "browserMinusOfflineMs": {
+        "median": 12,
+        "min": -1,
+        "max": 27
+      },
+      "offlineSettleMs": {
+        "median": 134,
+        "max": 212
+      },
+      "detectMsMedian": 0.800000011920929,
+      "baseLatencyMs": 10,
+      "sampleRate": 48000,
+      "errors": []
+    },
+    {
+      "fixture": "flight-two-misses",
+      "ok": true,
+      "range": {
+        "low": 41,
+        "high": 51
+      },
+      "expectedRange": {
+        "low": 41,
+        "high": 51,
+        "lowName": "F2",
+        "highName": "D#3"
+      },
+      "threaded": "10/12",
+      "missed": [
+        4,
+        8
+      ],
+      "expectMissed": [
+        4,
+        8
+      ],
+      "centsOff": [
+        10,
+        -17,
+        26,
+        -12,
+        335,
+        9,
+        28,
+        -4,
+        364,
+        16,
+        -11,
+        34
+      ],
+      "noteChanges": 10,
+      "browserMinusOfflineMs": {
+        "median": 8,
+        "min": -51,
+        "max": 19
+      },
+      "offlineSettleMs": {
+        "median": 151,
+        "max": 228
+      },
+      "detectMsMedian": 0.800000011920929,
+      "baseLatencyMs": 10,
+      "sampleRate": 48000,
+      "errors": []
+    },
+    {
+      "fixture": "practice-light",
+      "ok": true,
+      "range": {
+        "low": 53,
+        "high": 64
+      },
+      "matched": "8/8",
+      "cents": [
+        17,
+        16,
+        18,
+        17,
+        17,
+        17,
+        17,
+        18
+      ],
+      "errors": []
+    }
+  ]
+}

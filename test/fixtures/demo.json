@@ -1,0 +1,31 @@
+{
+  "seed": "demo",
+  "pseed": "demo",
+  "range": {
+    "low": 53,
+    "high": 64
+  },
+  "tuneStart": 8.4,
+  "tuneEnd": 30,
+  "practiceStart": 41,
+  "gates": [
+    "A3",
+    "F3",
+    "G3",
+    "A3",
+    "C4",
+    "G3",
+    "A3",
+    "A3",
+    "C4",
+    "G3",
+    "A3",
+    "C4"
+  ],
+  "practice": [
+    "C4",
+    "G3",
+    "D4"
+  ],
+  "seconds": 53.1
+}

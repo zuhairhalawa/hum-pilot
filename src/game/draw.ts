@@ -128,7 +128,12 @@ export function render(ctx: CanvasRenderingContext2D, w: number, h: number, sc: 
     const fill = flash ? (flash.ok ? C.stamp : C.redDark) : C.red;
     drawStampColumn(ctx, x - colW / 2, -10, colW, top + 10, fill);
     drawStampColumn(ctx, x - colW / 2, bot, colW, h - bot + 10, fill);
+    // Once a gate is behind the plane its postmark fades, so it doesn't crowd the plane's note label.
+    const behind = sc.t - gt.time;
+    ctx.save();
+    ctx.globalAlpha = behind > 0 ? Math.max(0.15, 1 - behind * 2.5) : 1;
     drawPostmark(ctx, x, (top + bot) / 2, Math.min((bot - top) * 0.42, 34), noteName(gt.note), flash);
+    ctx.restore();
   }
 
   // Trail: your hum, as a dashed flight path
